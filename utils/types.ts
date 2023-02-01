@@ -10,7 +10,6 @@ export interface GameData {
 }
 
 export interface Box {
-  index: number;
   x: number;
   y: number;
   type: BoxType;

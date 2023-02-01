@@ -108,7 +108,11 @@ export const GameContextProvider = ({
     const g = top[1] + left[1] + bottom[1] + right[1];
     const b = top[2] + left[2] + bottom[2] + right[2];
     const f = 255 / Math.max(r, g, b, 255);
-    const color: RGB = [r * f, g * f, b * f];
+    const color: RGB = [
+      Math.floor(r * f),
+      Math.floor(g * f),
+      Math.floor(b * f),
+    ];
     temp[`${box.x}-${box.y}`].color = color;
     setBoxes(temp);
     if (evaluateBox(boxes[closestKey].color) > evaluateBox(color)) {

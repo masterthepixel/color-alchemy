@@ -1,9 +1,8 @@
 const express = require("express");
-const SERVER_PORT = require("../utils/config");
 
 const app = express();
 
-const port = SERVER_PORT;
+const port = 9876;
 
 const getRandomInt = (min, max) => {
   return Math.floor(min + Math.random() * (max + 1 - min));

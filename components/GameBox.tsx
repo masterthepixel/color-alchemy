@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import styles from "styles/components/Box.module.css";
 import { BoxType } from "utils/types";
 
-interface BoxProps {
+interface GameBoxProps {
   highlighted?: boolean;
   rgb: [number, number, number];
   type?: BoxType;
@@ -22,7 +22,7 @@ export default function GameBox({
   onClickBox = () => {},
   handleDrop = () => {},
   handleDragStart = () => {},
-}: BoxProps) {
+}: GameBoxProps) {
   const onClick = () => {
     if (!clickable) return;
     else onClickBox();

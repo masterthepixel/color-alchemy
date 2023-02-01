@@ -4,7 +4,7 @@ import { GameData } from "utils/types";
 import { MAX_CLOSEST_SCORE } from "utils/constants";
 import { BASE_URL } from "utils/config";
 import { GameContext } from "context/game.context";
-import GameBox from "./Box";
+import GameBox from "./GameBox";
 import GameBoard from "./GameBoard";
 
 const Home = () => {
@@ -21,6 +21,23 @@ const Home = () => {
     initData,
     evaluateBox,
   } = useContext(GameContext);
+
+  const fetchGameData = async () => {
+    setIsLoading(true);
+    setError("");
+    try {
+      let url = `${BASE_URL}/init`;
+      if (userId) url += `/user/${userId}`;
+      const response = await fetch(url);
+      const data: GameData = await response.json();
+      initData(data);
+      setUserId(data.userId);
+    } catch (e: any) {
+      setError("Failed to fetch.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchGameData();
@@ -41,23 +58,6 @@ const Home = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [closestKey, boxes, moveCount, data]);
-
-  const fetchGameData = async () => {
-    setIsLoading(true);
-    setError("");
-    try {
-      let url = `${BASE_URL}/init`;
-      if (userId) url += `/user/${userId}`;
-      const response = await fetch(url);
-      const data: GameData = await response.json();
-      initData(data);
-      setUserId(data.userId);
-    } catch (e: any) {
-      setError("Failed to fetch.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className={styles.container}>

@@ -2,7 +2,6 @@ import { Box, BoxType, RGB } from "./types";
 
 export const generateGameBoxes = (width: number, height: number) => {
   const boxData: Record<string, Box> = {};
-  let index = 0;
   for (let row = 0; row < height + 2; row++) {
     for (let col = 0; col < width + 2; col++) {
       let type: BoxType = "tile";
@@ -22,13 +21,11 @@ export const generateGameBoxes = (width: number, height: number) => {
         type = "source";
       }
       boxData[`${col}-${row}`] = {
-        index,
         x: col,
         y: row,
         type,
         color: [0, 0, 0],
       };
-      index++;
     }
   }
   return boxData;

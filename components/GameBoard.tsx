@@ -1,9 +1,9 @@
-import React, { useCallback, useContext } from "react";
+import React, { useContext } from "react";
 import { GameContext } from "context/game.context";
 import styles from "styles/components/GameBoard.module.css";
 import { Box } from "utils/types";
 import { FIRST_3_COLORS } from "utils/constants";
-import GameBox from "./Box";
+import GameBox from "./GameBox";
 
 export default function GameBoard() {
   const {
@@ -16,7 +16,7 @@ export default function GameBoard() {
     updateTileColor,
   } = useContext(GameContext);
 
-  const onClickBox = (box: Box) => {
+  const handleClickBox = (box: Box) => {
     updateSourceColor(box, FIRST_3_COLORS[moveCount]);
     updateRelatedBoxColors(box);
     increaseMoveCount();
@@ -24,12 +24,12 @@ export default function GameBoard() {
 
   const updateRelatedBoxColors = (box: Box) => {
     if (box.y === 0 || box.y === data.height + 1) {
-      // clicked top and bottom source - update colors of bottom tiles
+      // clicked top and bottom source - update colors of vertical tiles
       for (let i = 0; i < data.height + 1; i++) {
         updateTileColor(boxes[`${box.x}-${i}`]);
       }
     } else {
-      // clicked left and right source - update colors of top tiles
+      // clicked left and right source - update colors of horizontal tiles
       for (let i = 0; i < data.width + 1; i++) {
         updateTileColor(boxes[`${i}-${box.y}`]);
       }
@@ -47,12 +47,12 @@ export default function GameBoard() {
     increaseMoveCount();
   };
 
-  const handleDragStart = useCallback(
-    (event: React.DragEvent<HTMLDivElement>, box: Box) => {
-      event.dataTransfer.setData("drag-box", JSON.stringify(box));
-    },
-    []
-  );
+  const handleDragStart = (
+    event: React.DragEvent<HTMLDivElement>,
+    box: Box
+  ) => {
+    event.dataTransfer.setData("drag-box", JSON.stringify(box));
+  };
 
   return (
     <div className={styles.container} style={{ width: (data.width + 2) * 34 }}>
@@ -68,7 +68,7 @@ export default function GameBoard() {
               box.type === "tile" && moveCount >= 3 && moveCount < data.maxMoves
             }
             clickable={box.type === "source" && moveCount < 3}
-            onClickBox={() => onClickBox(box)}
+            onClickBox={() => handleClickBox(box)}
             handleDrop={(e) => handleDrop(e, box)}
             handleDragStart={(e) => handleDragStart(e, box)}
           />
