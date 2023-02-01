@@ -8,13 +8,13 @@ This is a small game application in which the player can try to mix colors to cr
 
 # Getting Started
 
-First, install npm modules:
+1. install npm modules:
 
 ```bash
 yarn install
 ```
 
-Second, run the development server:
+2. run the front-end:
 
 ```bash
 npm run dev
@@ -22,9 +22,18 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- The page will not work due to the backend.
 
-Simultanousely, a local server will be running on http://localhost:9876
+3. run the backend in another terminal:
 
+```bash
+npm run server
+# or
+yarn server
+```
+
+- Then, a local server will be running on http://localhost:9876
 - 9876 is default port number of local server. You can edit it in config.ts
 - You can test the local server by opening http://localhost:9876/init with your browser.
+- Now you can test front-end on [http://localhost:3000](http://localhost:3000)
